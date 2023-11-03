@@ -38,7 +38,7 @@ You can use cronjob to run auto these scripts
 **V1.6**
 - add ftp space control
 - fix bugs
-- 
+
 **V1.8**
 - backup multiple mysql/mariadb backup
 - email receipt added
