@@ -41,3 +41,11 @@ containerID:::user:::password:::database
 ### Change log
 
 **V1.6**
+- add ftp space control
+- fix bugs
+
+### Task for future
+
+- [ ] Local space control
+- [ ] Fix Docker container backup problem
+
