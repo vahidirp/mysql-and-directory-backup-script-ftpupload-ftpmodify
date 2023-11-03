@@ -43,9 +43,15 @@ containerID:::user:::password:::database
 **V1.6**
 - add ftp space control
 - fix bugs
+- 
+**V1.8**
+- backup multiple mysql/mariadb backup
+- email receipt added
+- local space control added
+- fix bug and errors
 
 ### Task for future
 
-- [ ] Local space control
-- [ ] Fix Docker container backup problem
+- [ ] Fix errors & bugs
+
 
