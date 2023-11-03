@@ -3,8 +3,8 @@
 
 ### Main features
 
- - Backup Application or Web Root directories and Upload to MEGA Cloud
- - Backup MySQL/MariaDB databases, dump and zip and Upload to MEGA Cloud
+ - Backup Application or Web Root directories 
+ - Backup MySQL/MariaDB databases, dump and zip
  - Backup multiple MariaDB/MySQL docker containers
  - Space Control for Backup host from FTP
  - Encrypts backup file using GPG
