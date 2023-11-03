@@ -3,6 +3,8 @@ backup dumped mysql database  &amp; backup your app/web root directory with bash
 
 #Change variables on script files
 
+You need to install "zip" & "unzip" packages for compressed the backup files.
+
 You can all same templates of variables for do more backup of your database or app/web root directory
 
 You should change the variables that commented #change this variables on script files
