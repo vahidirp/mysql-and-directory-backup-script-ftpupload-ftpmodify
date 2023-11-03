@@ -25,11 +25,6 @@ You can all same templates of variables for do more backup of your database or a
 
 You can use cronjob to run auto these scripts
 
-### Syntax for Backup Docker MySQL/MariaDB
-```
-containerID:::user:::password:::database
-```
-
 ### Requirements
 
 - tar
