@@ -6,9 +6,15 @@ ftp_pass="your_password"
 
 # FTP directory to monitor
 ftp_directory="/app&web-backup/vahid.community" #change this variables to directory that you want to control
+local_directory="/path/to/local/directory"  #change this variable to local directory of your backup files
 
 # Maximum allowed space in megabytes
 max_space_mb=1000 #change this variables to find files that are larger more than something 1024mb=fix1GB
+
+# Email details
+recipient="your@email.com"
+subject="Upload and Cleanup Report"
+message="The upload and cleanup process is complete."
 
 # Connect to the FTP server
 lftp -u "$ftp_user","$ftp_pass" "$ftp_server" <<EOF
@@ -34,3 +40,14 @@ lftp -u "$ftp_user","$ftp_pass" "$ftp_server" <<EOF
     # Exit FTP session
     exit
 EOF
+
+# Create the remote directory if it doesn't exist
+lftp -e "mkdir -p $ftp_directory; bye" -u "$ftp_user","$ftp_password" "$ftp_server"
+
+# Upload files and directories
+lftp -e "mirror -R --reverse --delete-first $local_directory $ftp_directory; bye" -u "$ftp_user","$ftp_password" "$ftp_server"
+
+# Send email notification
+echo "$message" | mail -s "$subject" "$recipient"
+
+echo "Cleanup and upload completed. Email notification sent."
