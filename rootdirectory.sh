@@ -15,7 +15,7 @@ else
   echo "Backup failed" | mail -s "Backup Status" "$EMAIL"
 fi
 # Use the 'find' command to locate and delete old backup files (4 days or older)
-find "$TARGET_DIR_1" -type f -ctime +4 -exec rm -f {} \;
+find "$TARGET_DIR_1" -ctime +4 -exec rm -rf {} \;
 
 # Optionally, you can print a message indicating the cleanup is complete
 echo "Cleanup completed."
