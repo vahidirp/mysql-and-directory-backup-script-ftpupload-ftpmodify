@@ -10,7 +10,7 @@ mkdir -p "$BACKUP_DIR1"
 mysqldump --user=$DB_USER --password=$DB_PASS $DB_1 > $BACKUP_DIR1/$DB_1-$DATE.sql
 if [ $? -eq 0 ]; then
   gzip "$BACKUP_DIR1/$DB_1-$DATE.sql"
-  echo "MySQL database backup completed successfully" | mail -s "Backup Status" "$EMAIL"
+  echo "MySQL/MariaDB database backup completed successfully" | mail -s "Backup Status" "$EMAIL"
 else
-  echo "MySQL database backup failed" | mail -s "Backup Status" "$EMAIL"
+  echo "MySQL/MariaDB database backup failed" | mail -s "Backup Status" "$EMAIL"
 fi
