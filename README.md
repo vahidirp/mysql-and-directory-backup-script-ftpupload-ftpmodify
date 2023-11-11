@@ -50,6 +50,7 @@ You can use cronjob to run auto these scripts
 - [ ] Fix errors & bugs
 
 ### Donate if you like :)
-[USD T] TYJcqjinzdkyC4KozyqD8LqeJ2VFv3Zg8X1
-[BTC] bc1qe4dweeppgwjhfeehxa5d0nyfp6qe8gyruyhdtp
+- [USD T] TYJcqjinzdkyC4KozyqD8LqeJ2VFv3Zg8X1
+
+- [BTC] bc1qe4dweeppgwjhfeehxa5d0nyfp6qe8gyruyhdtp
 
