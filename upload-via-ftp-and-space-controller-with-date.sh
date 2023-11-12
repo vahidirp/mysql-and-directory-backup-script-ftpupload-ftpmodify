@@ -62,6 +62,6 @@ lftp -e "mkdir -p $ftp_directory; bye" -u "$ftp_user","$ftp_password" "$ftp_serv
 lftp -e "mirror -R --reverse --delete-first $local_directory $ftp_directory; bye" -u "$ftp_user","$ftp_password" "$ftp_server"
 
 # Send email notification
-echo "$message" | mail -s "$EMAIL_SUBJECT" -a "From: $SENDER_EMAIL" -S smtp=smtp://$SMTP_SERVER:$SMTP_PORT -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=$SMTP_USER -S smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
+echo "$message" | mail -s "$EMAIL_SUBJECT" -a "From: $SENDER_EMAIL" -s smtp=smtp://$SMTP_SERVER:$SMTP_PORT -s smtp-use-starttls -s smtp-auth=login -s smtp-auth-user=$SMTP_USER -s smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
 
 echo "Cleanup and upload completed. Email notification sent."
