@@ -6,8 +6,15 @@ file_to_encrypt="file.txt" #change this variable to your file that want to encry
 # Set the static passphrase
 passphrase="YourStaticPassphraseHere" #change this variable (it is static) can contains Complexity Length Unpredictability Unique Memorability example: "P@ssw0rd$ecure4Me"
 
-# Recipient's email address
-recipient_email="recipient@example.com" #change this variable with your administrator or monitoring email.
+# SMTP configuration for sending email
+SMTP_SERVER="your_smtp_server" # Change this variables
+SMTP_PORT="your_smtp_port" # Change this variables
+SMTP_USER="your_smtp_user" # Change this variables
+SMTP_PASSWORD="your_smtp_password" # Change this variables
+RECIPIENT_EMAIL="recipient@example.com" # Change this to your email address for success or unsuccess backup progress
+SENDER_EMAIL="sender@example.com" # Can same as RECIPIENT_EMAIL
+EMAIL_SUBJECT="GPG Encryption" 
+
 
 # Extract the base name of the file (without the path)
 base_name=$(basename "$file_to_encrypt")
@@ -23,8 +30,8 @@ if [ $? -eq 0 ]; then
     echo "File encrypted successfully."
 
     # Send the encrypted file as an email attachment
-    echo "Sending encrypted file ($output_file) to $recipient_email..."
-    echo "Please find the encrypted file attached." | mail -s "Encrypted File" -a "$output_file" "$recipient_email"
+    echo "Sending encrypted file ($output_file) to $RECIPIENT_EMAIL..."
+    echo "Please find the encrypted file attached." | mail -s "$EMAIL_SUBJECT_PASS" -a "From: $SENDER_EMAIL" -a "$output_file" -S smtp=smtp://$SMTP_SERVER:$SMTP_PORT -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=$SMTP_USER -S smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
     echo "Email sent successfully."
 else
     echo "Encryption failed."
