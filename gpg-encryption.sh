@@ -31,7 +31,7 @@ if [ $? -eq 0 ]; then
 
     # Send the encrypted file as an email attachment
     echo "Sending encrypted file ($output_file) to $RECIPIENT_EMAIL..."
-    echo "Please find the encrypted file attached." | mail -s "$EMAIL_SUBJECT_PASS" -a "From: $SENDER_EMAIL" -a "$output_file" -S smtp=smtp://$SMTP_SERVER:$SMTP_PORT -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=$SMTP_USER -S smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
+    echo "Please find the encrypted file attached." | mail -s "$EMAIL_SUBJECT_PASS" -a "From: $SENDER_EMAIL" -a "$output_file" -s smtp=smtp://$SMTP_SERVER:$SMTP_PORT -s smtp-use-starttls -s smtp-auth=login -s smtp-auth-user=$SMTP_USER -s smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
     echo "Email sent successfully."
 else
     echo "Encryption failed."
