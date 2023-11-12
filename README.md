@@ -45,6 +45,9 @@ You can use cronjob to run auto these scripts
 - local space control added
 - fix bug and errors
 
+**V2.0**
+- add custom smtp identity feature 
+
 ### Task for future
 
 - [ ] Fix errors & bugs
