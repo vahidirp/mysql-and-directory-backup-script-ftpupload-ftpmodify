@@ -11,9 +11,14 @@ local_directory="/path/to/local/directory"  #change this variable to local direc
 # Maximum allowed space in megabytes
 max_space_mb=1000 #change this variables to find files that are larger more than something 1024mb=fix1GB
 
-# Email details
-recipient="your@email.com"
-subject="Upload and Cleanup Report"
+# SMTP configuration for sending email
+SMTP_SERVER="your_smtp_server" # Change this variables
+SMTP_PORT="your_smtp_port" # Change this variables
+SMTP_USER="your_smtp_user" # Change this variables
+SMTP_PASSWORD="your_smtp_password" # Change this variables
+RECIPIENT_EMAIL="recipient@example.com" # Change this to your email address for success or unsuccess backup progress
+SENDER_EMAIL="sender@example.com" # Can same as RECIPIENT_EMAIL
+EMAIL_SUBJECT="Upload To FTP" 
 message="The upload and cleanup process is complete."
 
 # Connect to the FTP server
@@ -48,6 +53,6 @@ lftp -e "mkdir -p $ftp_directory; bye" -u "$ftp_user","$ftp_password" "$ftp_serv
 lftp -e "mirror -R --reverse --delete-first $local_directory $ftp_directory; bye" -u "$ftp_user","$ftp_password" "$ftp_server"
 
 # Send email notification
-echo "$message" | mail -s "$subject" "$recipient"
+echo "$message" | mail -s "$EMAIL_SUBJECT" -a "From: $SENDER_EMAIL" -S smtp=smtp://$SMTP_SERVER:$SMTP_PORT -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=$SMTP_USER -S smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
 
 echo "Cleanup and upload completed. Email notification sent."
