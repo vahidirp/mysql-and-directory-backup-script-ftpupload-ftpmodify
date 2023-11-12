@@ -19,9 +19,9 @@ zip -r "$TARGET_DIR_1/$DATE.zip" "$BACKUP_DIR"
 
 # Check if the backup was successful
 if [ $? -eq 0 ]; then
-  echo "Backup completed successfully" | mail -s "$EMAIL_SUBJECT_PASS" -a "From: $SENDER_EMAIL" -S smtp=smtp://$SMTP_SERVER:$SMTP_PORT -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=$SMTP_USER -S smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
+  echo "Backup completed successfully" | mail -s "$EMAIL_SUBJECT_PASS" -a "From: $SENDER_EMAIL" -s smtp=smtp://$SMTP_SERVER:$SMTP_PORT -s smtp-use-starttls -s smtp-auth=login -s smtp-auth-user=$SMTP_USER -s smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
 else
-  echo "Backup failed" | mail -s "$EMAIL_SUBJECT_FAILED" -a "From: $SENDER_EMAIL" -S smtp=smtp://$SMTP_SERVER:$SMTP_PORT -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=$SMTP_USER -S smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
+  echo "Backup failed" | mail -s "$EMAIL_SUBJECT_FAILED" -a "From: $SENDER_EMAIL" -s smtp=smtp://$SMTP_SERVER:$SMTP_PORT -s smtp-use-starttls -s smtp-auth=login -s smtp-auth-user=$SMTP_USER -s smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
 fi
 # Use the 'find' command to locate and delete old backup files (4 days or older)
 find "$TARGET_DIR_1" -ctime +4 -exec rm -rf {} \;
