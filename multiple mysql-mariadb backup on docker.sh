@@ -10,8 +10,15 @@ DB_USER="your_db_user"
 DB_PASSWORD="your_db_password"
 
 # Email configuration
-EMAIL_TO="your@email.com"
-EMAIL_SUBJECT="Database Backup Report"
+# SMTP configuration for sending email
+SMTP_SERVER="your_smtp_server" # Change this variables
+SMTP_PORT="your_smtp_port" # Change this variables
+SMTP_USER="your_smtp_user" # Change this variables
+SMTP_PASSWORD="your_smtp_password" # Change this variables
+RECIPIENT_EMAIL="recipient@example.com" # Change this to your email address for success or unsuccess backup progress
+SENDER_EMAIL="sender@example.com" # Can same as RECIPIENT_EMAIL
+EMAIL_SUBJECT_PASS="Database Backup Pass" 
+EMAIL_SUBJECT_FAILED="Database Backup Failed"
 
 # Remove backup files and folders older than 4 days
 find $BACKUP_DIR -type f -mtime +4 -exec rm {} \;
@@ -33,10 +40,10 @@ do
    if [ $? -eq 0 ]; then
        echo "Backup for ${CONTAINER} completed successfully: ${BACKUP_FILE}"
        # Send an email receipt
-       echo "Backup for ${CONTAINER} completed successfully." | mail -s "${EMAIL_SUBJECT}" "${EMAIL_TO}"
+       echo "Backup for ${CONTAINER} completed successfully." | mail -s "${EMAIL_SUBJECT_PASS}" -a "From: ${SENDER_EMAIL}" -S smtp=smtp://${SMTP_SERVER}:${SMTP_PORT} -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=${SMTP_USER} -S smtp-auth-password=${SMTP_PASSWORD} ${RECIPIENT_EMAIL}
    else
        echo "Backup for ${CONTAINER} failed"
        # Send an email notification
-       echo "Backup for ${CONTAINER} failed." | mail -s "${EMAIL_SUBJECT}" "${EMAIL_TO}"
+       echo "Backup for ${CONTAINER} failed." | mail -s "${EMAIL_SUBJECT_FAILED}" -a "From: ${SENDER_EMAIL}" -S smtp=smtp://${SMTP_SERVER}:${SMTP_PORT} -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=${SMTP_USER} -S smtp-auth-password=${SMTP_PASSWORD} ${RECIPIENT_EMAIL}
    fi
 done
