@@ -20,9 +20,9 @@ mkdir -p "$TARGET_DIR_1"
 mysqldump --user=$DB_USER --password=$DB_PASS $DB_1 > $BACKUP_DIR1/$DB_1-$DATE.sql
 if [ $? -eq 0 ]; then
   gzip "$BACKUP_DIR1/$DB_1-$DATE.sql"
-  echo "MySQL/MariaDB database backup completed successfully" | mail -s "$EMAIL_SUBJECT_PASS" -a "From: $SENDER_EMAIL" -S smtp=smtp://$SMTP_SERVER:$SMTP_PORT -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=$SMTP_USER -S smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
+  echo "MySQL/MariaDB database backup completed successfully" | mail -s "$EMAIL_SUBJECT_PASS" -a "From: $SENDER_EMAIL" -s smtp=smtp://$SMTP_SERVER:$SMTP_PORT -s smtp-use-starttls -s smtp-auth=login -s smtp-auth-user=$SMTP_USER -s smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
 else
-  echo "MySQL/MariaDB database backup failed" | mail -s "$EMAIL_SUBJECT_FAILED" -a "From: $SENDER_EMAIL" -S smtp=smtp://$SMTP_SERVER:$SMTP_PORT -S smtp-use-starttls -S smtp-auth=login -S smtp-auth-user=$SMTP_USER -S smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
+  echo "MySQL/MariaDB database backup failed" | mail -s "$EMAIL_SUBJECT_FAILED" -a "From: $SENDER_EMAIL" -s smtp=smtp://$SMTP_SERVER:$SMTP_PORT -s smtp-use-starttls -s smtp-auth=login -s smtp-auth-user=$SMTP_USER -s smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
 fi
 # Use the 'find' command to locate and delete old backup files (4 days or older)
 find "$TARGET_DIR_1" -ctime +4 -exec rm -rf {} \;
