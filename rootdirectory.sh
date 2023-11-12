@@ -9,8 +9,8 @@ SMTP_USER="your_smtp_user" # Change this variables
 SMTP_PASSWORD="your_smtp_password" # Change this variables
 RECIPIENT_EMAIL="recipient@example.com" # Change this to your email address for success or unsuccess backup progress
 SENDER_EMAIL="sender@example.com" # Can same as RECIPIENT_EMAIL
-EMAIL_SUBJECT_PASS="Database Backup Pass" 
-EMAIL_SUBJECT_FAILED="Database Backup Failed"
+EMAIL_SUBJECT_PASS="RootDirectory Backup Pass" 
+EMAIL_SUBJECT_FAILED="RootDirectory Failed"
 
 TARGET_DIR_1="$DIR1" #This variable for control space and delete files that are for more than somedays
 mkdir -p "$TARGET_DIR_1"
