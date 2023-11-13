@@ -47,11 +47,12 @@ You can use cronjob to run auto these scripts
 
 **V2.0**
 - add custom smtp identity feature 
-
+- fix bugs and syntax error
+- optimizing
 ### Task for future
 
 - [ ] Fix errors & bugs
-
+- [ ] Use GPG Encryption in releases to encrypt
 ### Donate if you like :)
 - [USD T] TYJcqjinzdkyC4KozyqD8LqeJ2VFv3Zg8X1
 
