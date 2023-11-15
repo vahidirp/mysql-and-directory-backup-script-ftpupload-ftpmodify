@@ -27,8 +27,8 @@ EMAIL_SUBJECT_FAILED="Database Backup Failed"
 mkdir -p "$DB_DIR_1"
 mkdir -p "$DB_DIR_2"
 # Docker exec command to run mysqldump inside the container and compress the backup
- docker exec -it <$DB_CONTAINER_1> mysqldump --user=$DB1_User --password=$DB1_Password $DB_Name_1 | gzip > $DB_DIR_1/$DB_Name_1-${DATE}.gz
- docker exec -it <$DB_CONTAINER_2> mysqldump --user=$DB2_User --password=$DB2_Password $DB_Name_2 | gzip > $DB_DIR_2/$DB_Name_2-${DATE}.gz
+ docker exec -it $DB_CONTAINER_1 mysqldump --user=$DB1_User --password=$DB1_Password $DB_Name_1 | gzip > $DB_DIR_1/$DB_Name_1-${DATE}.gz
+ docker exec -it $DB_CONTAINER_2 mysqldump --user=$DB2_User --password=$DB2_Password $DB_Name_2 | gzip > $DB_DIR_2/$DB_Name_2-${DATE}.gz
  if [ $? -eq 0 ]; then
   echo "MySQL/MariaDB database backup completed successfully" | mail -s "$EMAIL_SUBJECT_PASS" -a "From: $SENDER_EMAIL" -s smtp=smtp://$SMTP_SERVER:$SMTP_PORT -s smtp-use-starttls -s smtp-auth=login -s smtp-auth-user=$SMTP_USER -s smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
 else
