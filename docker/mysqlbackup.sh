@@ -17,5 +17,5 @@ DB2_Password="your_database2_password"
 mkdir -p "$DB_DIR_1"
 mkdir -p "$DB_DIR_2"
 # Docker exec command to run mysqldump inside the container and compress the backup
- docker exec -i ${DB_CONTAINER_1} mysqldump --user=${DB1_User} --password=${DB1_Password} ${DB_Name_1} | gzip > ${DB_DIR_1}/${DB_Name_1}-${DATE}.gz
- docker exec -i ${DB_CONTAINER_2} mysqldump --user=${DB2_User} --password=${DB2_Password} ${DB_Name_2} | gzip > ${DB_DIR_2}/${DB_Name_2}-${DATE}.gz
+ docker exec -it <$DB_CONTAINER_1> mysqldump --user=$DB1_User --password=$DB1_Password $DB_Name_1 | gzip > $DB_DIR_1/$DB_Name_1-${DATE}.gz
+ docker exec -it <$DB_CONTAINER_2> mysqldump --user=$DB2_User --password=$DB2_Password $DB_Name_2 | gzip > $DB_DIR_2/$DB_Name_2-${DATE}.gz
