@@ -52,7 +52,7 @@ You can use cronjob to run auto these scripts
 
 **V2.2**
 - added docker script
-- optimizing
+- optimizing and more compabality 
 
 ### Task for future
 
