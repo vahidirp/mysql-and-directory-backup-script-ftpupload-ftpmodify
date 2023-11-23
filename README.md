@@ -49,11 +49,15 @@ You can use cronjob to run auto these scripts
 - add custom smtp identity feature 
 - fix bugs and syntax error
 - optimizing
+
+**V2.2**
+- added docker script
+- optimizing
+
 ### Task for future
 
 - [ ] Fix errors & bugs
 - [ ] Use GPG Encryption in releases to encrypt
-- [ ] Start Docker Scripts
 
 ### Donate if you like :)
 - [USD T] TYJcqjinzdkyC4KozyqD8LqeJ2VFv3Zg8X1
