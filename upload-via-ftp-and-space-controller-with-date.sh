@@ -8,7 +8,7 @@ ftp_pass="your_password"
 ftp_directory="/app&web/vahid.community" #change this variable to directory on ftp that you want to upload and control
 local_directory="/path/to/local/directory"  #change this variable to local directory of your backup files
 # Define the maximum age of files to keep in days
-max_age_days=30 #change this variables for delete files older that some days for example for delete more than 4 days : max_age_days=4
+DELDATE=$(date -d "-5 days" +"%d-%m-%Y")  #change this variables for delete files older that some days for example for delete more than 4 days : DELDATE=$(date -d "-4 days" +"%d-%m-%Y")
 
 # SMTP configuration for sending email
 SMTP_SERVER="your_smtp_server" # Change this variables
@@ -20,46 +20,17 @@ SENDER_EMAIL="sender@example.com" # Can same as RECIPIENT_EMAIL
 EMAIL_SUBJECT="Upload To FTP" 
 message="The upload and cleanup process is complete."
 
-# Ensure the local directory exists
-if [ ! -d "$local_directory" ]; then
-  echo "Local directory does not exist: $local_directory"
-  exit 1
-fi
-
-# Connect to the FTP server
-lftp -u "$ftp_user","$ftp_pass" "$ftp_server" <<EOF
-    # Change to the FTP directory
-    cd "$ftp_directory"
-
-    # Calculate the cutoff date (files older than this will be removed)
-    cutoff_date=$(date -d "$max_age_days days ago" +%Y%m%d)
-            
-    # List files in the directory
-    ls
-
-    # Loop through the files in the directory
-    for file in $(ls -1); do
-        # Extract the file modification date
-        file_date=$(date -r "$file" +%Y%m%d)
-        
-        # Compare the file date with the cutoff date
-        if [ "$file_date" -lt "$cutoff_date" ]; then
-            echo "Removing file $file (modified on $file_date)"
-            
-            # Delete the file
-            rm "$file"
-        fi
-    done
-
-    # Exit FTP session
-    exit
+# Cleanup LOCAL DIRBACKUP DIR in FTP Server
+ncftp -u "$ftp_user" -p "$ftp_pass" "$ftp_server" <<EOF
+cd "$ftp_directory"
+cd "$DELDATE"
+rm *
+rmdir "$DELDATE"
+quit
 EOF
 
-# Create the remote directory if it doesn't exist
-lftp -e "mkdir -p $ftp_directory; bye" -u "$ftp_user","$ftp_password" "$ftp_server"
-
-# Upload files and directories
-lftp -e "mirror -R --reverse --delete-first $local_directory $ftp_directory; bye" -u "$ftp_user","$ftp_password" "$ftp_server"
+# Start Upload Data
+ncftpput -R -v -u $ftp_user -p $ftp_pass $ftp_server $ftp_directory $local_directory
 
 # Send email notification
 echo "$message" | mail -s "$EMAIL_SUBJECT" -a "From: $SENDER_EMAIL" -s smtp=smtp://$SMTP_SERVER:$SMTP_PORT -s smtp-use-starttls -s smtp-auth=login -s smtp-auth-user=$SMTP_USER -s smtp-auth-password=$SMTP_PASSWORD $RECIPIENT_EMAIL
